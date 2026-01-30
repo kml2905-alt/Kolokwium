@@ -1,4 +1,5 @@
 Zad.1
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -20,10 +21,69 @@ def add_to_end(head, value):
     current.next = new_node
     return head
 
-
 Zad.2
+
 class BSTNode:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
+
+
+def insert_bst(root, key):
+    if root is None:
+        return BSTNode(key)
+
+    if key < root.key:
+        root.left = insert_bst(root.left, key)
+    elif key > root.key:
+        root.right = insert_bst(root.right, key)
+    # jeśli klucz równy — pomijamy lub obsługujemy wg założeń
+
+    return root
+
+Zad.3
+
+def same_sum_triplets(arr):
+    sums = {}  # suma -> indeks pierwszej trójki
+
+    for i in range(len(arr) - 2):
+        current_sum = arr[i] + arr[i+1] + arr[i+2]
+
+        if current_sum in sums:
+            return sums[current_sum], i
+
+        sums[current_sum] = i
+
+    return None
+
+Zad.4
+
+def check_blocks(text):
+    stack = []
+
+    opening = {
+        '„': '”',
+        '»': '«',
+        '(': ')'
+    }
+
+    closing = {v: k for k, v in opening.items()}
+
+    for char in text:
+        if char in opening:
+            stack.append(char)
+
+        elif char in closing:
+            if not stack:
+                return f"Błąd: zamknięcie '{char}' bez otwarcia"
+
+            last = stack.pop()
+            if opening[last] != char:
+                return f"Błąd: niepoprawne domknięcie '{char}' dla '{last}'"
+
+    if stack:
+        niedomkniete = [opening[c] for c in stack]
+        return f"Błąd: niedomknięte bloki: {niedomkniete}"
+
+   
