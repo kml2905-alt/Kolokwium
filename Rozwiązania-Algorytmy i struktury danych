@@ -1,0 +1,29 @@
+Zad.1
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def add_to_end(head, value):
+    new_node = Node(value)
+
+    # jeśli lista pusta
+    if head is None:
+        return new_node
+
+    # przejście na koniec listy
+    current = head
+    while current.next is not None:
+        current = current.next
+
+    current.next = new_node
+    return head
+
+
+Zad.2
+class BSTNode:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
